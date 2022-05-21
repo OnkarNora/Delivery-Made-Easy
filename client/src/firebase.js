@@ -57,7 +57,7 @@ const logInWithEmailAndPassword = async (email, password) => {
         alert(err.message);
     }
 };
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerUserWithEmailAndPassword = async (name, email, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -66,6 +66,23 @@ const registerWithEmailAndPassword = async (name, email, password) => {
             name,
             authProvider: "local",
             email,
+            type:"user"
+        });
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
+};
+const registerShopOwnerWithEmailAndPassword = async (name, email, password) => {
+    try {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+        const user = res.user;
+        await addDoc(collection(db, "shopowner"), {
+            uid: user.uid,
+            name,
+            authProvider: "local",
+            email,
+            type: "shopowner"
         });
     } catch (err) {
         console.error(err);
@@ -89,7 +106,8 @@ export {
     db,
     signInWithGoogle,
     logInWithEmailAndPassword,
-    registerWithEmailAndPassword,
+    registerUserWithEmailAndPassword,
+    registerShopOwnerWithEmailAndPassword,
     sendPasswordReset,
     logout,
 };

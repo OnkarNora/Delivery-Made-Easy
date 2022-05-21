@@ -1,10 +1,13 @@
 
 import './App.css';
 import Login from './Login'
-import Dashboard from './Dashboard';
+import UserDashboard from './User/Dashboard';
+import ShopOwnerDashboard from './ShopOwner/Dashboard';
 import React from 'react';
 import Reset from "./Reset";
-import Register from './Register';
+import RegisterUser from './RegisterUser';
+import RegisterShopOwner from './RegisterShopOwner';
+import Home from './Home'
 import {
     BrowserRouter as Router,
     Routes,
@@ -18,10 +21,14 @@ function App() {
         <div className="app">
             <Router>
                 <Routes>
-                    <Route exact path="/" element={<Login />} />
-                    <Route exact path="/register" element={<Register />} />
-                    <Route exact path="/reset" element={<Reset />} />
-                    <Route exact path="/dashboard" element={<Dashboard />} />
+
+                    <Route  exact path="/" element={<Home />} />
+                    <Route  path="/login" element={<Login />} />
+                    <Route  path="/registerUser" element={<RegisterUser />} />
+                    <Route  path="/registerShopOwner" element={<RegisterShopOwner />} />
+                    <Route  path="/reset" element={<Reset />} />
+                    <Route  path="/userDashboard" element={<UserDashboard />} />
+                    <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
                 </Routes>
             </Router>
         </div>

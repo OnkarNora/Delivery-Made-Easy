@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { UserType } from "./UserType";
 import "./Login.css";
 function Login() {
     const [email, setEmail] = useState("");
@@ -13,11 +14,24 @@ function Login() {
             // maybe trigger a loading screen
             return;
         }
-        if (user) navigate("/dashboard");
+        if (user) {
+            UserType(user).then((type)=>{
+                if (type === "shopowner"){
+                    navigate('/shopOwnerDashboard');
+                }
+                else{
+                    navigate('/userDashboard');
+                }
+            })
+        }
+            
     }, [user, loading]);
+
     return (
         <div className="login">
+            
             <div className="login__container">
+            <h2>Login</h2>
                 <input
                     type="text"
                     className="login__textBox"
@@ -45,7 +59,8 @@ function Login() {
                     <Link to="/reset">Forgot Password</Link>
                 </div>
                 <div>
-                    Don't have an account? <Link to="/register">Register</Link> now.
+                    Don't have an account? <Link to="/registerUser">Register as User</Link><br/> <Link to="/registerShopOwner">Register as Shop Owner</Link> now.
+
                 </div>
             </div>
         </div>
