@@ -43,7 +43,6 @@ const fetchDeliveriesData = async (user) => {
     }
 };
 
-
 export {
     fetchDeliveriesData,
 

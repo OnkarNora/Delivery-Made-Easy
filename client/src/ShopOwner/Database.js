@@ -5,6 +5,8 @@ import {
     collection,
     where,
     addDoc,
+    getDoc,
+    doc
 } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
@@ -64,11 +66,58 @@ const fetchDeliveriesData = async (user) => {
         return data;
     } catch (err) {
         console.error(err);
-        alert("An error occurred  while fetching user data");
+        alert("An error occurred  while fetching  data");
     }
 };
+
+const getRequests = async (user,delivery) => {
+    try{
+        
+        const ref = doc(db,"deliveries",delivery.id);
+        const docSnap = await getDoc(ref);
+        const data = docSnap.data().requests
+        if (data){
+            console.log(data);
+            return data;
+        } else{
+            console.log("No requests");
+            return "No requests";
+        }
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+    }
+};
+
+const getUsers =  async (usersid)=>{
+    const data = await Promise.all(usersid.map(async (item,id)=>{
+        try {
+            const q = query(collection(db, "users"),where("uid" ,"==" ,item));
+            const doc = await getDocs(q);
+            return doc.docs[0].data() 
+            // console.log(doc.docs[0].data())
+            
+
+        } catch (err) {
+            console.error(err);
+            alert("An error occurred  while fetching  data");
+        }
+    }))
+    // console.log(data);
+    return data;
+    
+}
+
+const acceptRequest = (delivery,userId)=>{ // this should change the status of the delivery to Allocated and add the deliveryPerson
+    
+}
 
 export {
     addNewDelivery,
     fetchDeliveriesData,
+    getRequests,
+    getUsers,
+    acceptRequest,
 }
