@@ -4,42 +4,35 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
-
+import NavBar from "./NavigationBar";
+import { Button } from "react-bootstrap";
+import ListDeliveries from "./ListDeliveries";
+import {fetchDeliveriesData} from './Database'
 
 function Dashboard() {
-  const [user, loading, error] = useAuthState(auth);
-  const [name, setName] = useState("");
-  const navigate = useNavigate();
-  const fetchUserName = async () => {
-    try {
-      const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-      const doc = await getDocs(q);
-      const data = doc.docs[0].data();
-      setName(data.name);
-    } catch (err) {
-      console.error(err);
-      alert("An error occured while fetching user data");
-    }
-  };
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/");
-    fetchUserName();
-  }, [user, loading]);
+
+    const [user, loading, error] = useAuthState(auth);
+    const [deliveries, setDeliveries] = useState("");
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/");
+        fetchDeliveriesData(user).then((d)=>{
+            setDeliveries(d);
+            console.log(d)
+        })
+    }, [user, loading]);
 
 
-  
-  return (
-    <div className="dashboard">
-       <div className="dashboard__container">
-        Logged in as
-         <div>{name}</div>
-         <div>{user?.email}</div>
-         <button className="dashboard__btn" onClick={logout}>
-          Logout
-         </button>
-       </div>
-     </div>
-  );
+    return (
+        <div >
+            <NavBar/>
+            <h1 className="dashboard__container">{ deliveries.length>0 ? <ListDeliveries deliveries={deliveries}/> :
+                "No Deliveries to show"
+            }</h1>
+            <div className="text-center m-3" ><Button onClick={logout} >Logout</Button></div>
+        </div>
+    );
 }
 export default Dashboard;

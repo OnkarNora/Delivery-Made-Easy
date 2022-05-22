@@ -22,34 +22,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-
-const addNewDelivery = async (user) => {
-    // this is temporary object that i am passing we need to take this input from user
-    const delivery = {
-        name : "Pizza ",
-        weight : "200gm",
-        points : 40,
-        shopOwnerId : user.uid,
-        from : "ashok nagar",
-        to : "ramesh nagar",
-        deliveryPerson : "",
-        status : "Pending",
-    }
-    
-
-    try {
-        await addDoc(collection(db, "deliveries"), delivery);
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
-
-    console.log("delivery request");
-};
-
 const fetchDeliveriesData = async (user) => {
     try {
-        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid));
+        const q = query(collection(db, "deliveries"),where("deliveryPerson" ,"==" ,user.uid));
         
         const doc = await getDocs(q);
         let data = []
@@ -68,7 +43,8 @@ const fetchDeliveriesData = async (user) => {
     }
 };
 
+
 export {
-    addNewDelivery,
     fetchDeliveriesData,
+
 }
