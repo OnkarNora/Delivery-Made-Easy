@@ -5,6 +5,9 @@ import {
     collection,
     where,
     addDoc,
+    updateDoc,
+    doc,
+    arrayUnion,
 } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
@@ -24,7 +27,7 @@ const db = getFirestore(app);
 
 const fetchDeliveriesData = async (user) => {
     try {
-        const q = query(collection(db, "deliveries"),where("deliveryPerson" ,"==" ,user.uid));
+        const q = query(collection(db, "deliveries"));
         
         const doc = await getDocs(q);
         let data = []
@@ -43,7 +46,25 @@ const fetchDeliveriesData = async (user) => {
     }
 };
 
+const requestDelivery = async (delivery,userId) => {
+    try{
+        
+        const ref = doc(db,"deliveries",delivery.id);
+        const docSnap = await await updateDoc(ref, {
+            "requests": arrayUnion(userId),
+            "status": "Requested"
+        });
+        console.log("request has been made",docSnap);
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+    }
+}
+
 export {
     fetchDeliveriesData,
+    requestDelivery,
 
 }

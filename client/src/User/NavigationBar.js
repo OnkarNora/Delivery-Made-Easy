@@ -1,6 +1,7 @@
 import React from 'react'
-import {Navbar,Container,Nav} from 'react-bootstrap'
+import {Navbar,Container,Nav,Button} from 'react-bootstrap'
 import { Link } from "react-router-dom";
+import {logout} from '../firebase'
 
 function NavigationBar() {
     return (
@@ -13,6 +14,7 @@ function NavigationBar() {
                         <Nav.Link href="#features">Features</Nav.Link>
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                     </Nav>
+                    <div className="text-center m-3" ><Button onClick={logout} >Logout</Button></div>
                 </Container>
             </Navbar>
         </div>

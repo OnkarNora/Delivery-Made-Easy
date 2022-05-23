@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
-import { auth, logout } from "../firebase";
+import { auth } from "../firebase";
 import NavBar from "./NavigationBar";
 import { Button } from "react-bootstrap";
 import ListDeliveries from "./ListDeliveries";
@@ -34,7 +34,7 @@ function Dashboard() {
                 "No Deliveries to show"
             }</h1>
             <div className="text-center m-3" ><Button onClick={()=>{addNewDelivery(user);fetchDeliveriesData(user).then((d)=>{setDeliveries(d);})}} >Add new Delivery</Button></div>
-            <div className="text-center m-3" ><Button onClick={logout} >Logout</Button></div>
+            
         </div>
     );
 }

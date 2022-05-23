@@ -6,7 +6,8 @@ import {
     where,
     addDoc,
     getDoc,
-    doc
+    doc,
+    updateDoc,
 } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
@@ -110,8 +111,18 @@ const getUsers =  async (usersid)=>{
     
 }
 
-const acceptRequest = (delivery,userId)=>{ // this should change the status of the delivery to Allocated and add the deliveryPerson
-    
+const acceptRequest = async (delivery,userId)=>{ // this should change the status of the delivery to Allocated and add the deliveryPerson
+    try{
+        
+        const ref = doc(db,"deliveries",delivery.id);
+        const docSnap = await updateDoc(ref,{"status":"Allocated","deliveryPerson":userId});
+        console.log("data has been updated",docSnap);
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+    }
 }
 
 export {

@@ -1,7 +1,14 @@
 import React from 'react'
-import {ListGroup} from 'react-bootstrap'
+import {ListGroup, Button} from 'react-bootstrap'
+import {requestDelivery} from './Database'
+import {auth} from '../firebase'
+import { useAuthState } from "react-firebase-hooks/auth";
+
 
 function ListDeliveries({deliveries}) {
+
+    const [user, loading, error] = useAuthState(auth);
+
     return (
         <ListGroup as="ol" numbered>
             {deliveries.map((item,id)=>{
@@ -14,6 +21,7 @@ function ListDeliveries({deliveries}) {
 
                     <div className="ms-2 me-auto text-justify">
                         <div className="fw-bold">{item.name}</div>
+
                         <div className='d-flex flex-column ' >
                             <div>weight : {item.weight}</div>
                             <div>Pointes : {item.points}</div>
@@ -22,8 +30,12 @@ function ListDeliveries({deliveries}) {
                             <div>Status : {item.status}</div>
                             <div>id : {item.id}</div>
                         </div>
-                        
+
+                        <Button className='m-2' onClick={()=>{requestDelivery(item,user.uid)}} >Request</Button>
                     </div>
+
+                    
+
                     <hr/>
                 </ListGroup.Item>
                 )
