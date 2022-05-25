@@ -13,6 +13,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
+import NewDelivery from './ShopOwner/NewDelivery';
 
 
 
@@ -29,6 +30,8 @@ function App() {
                     <Route  path="/reset" element={<Reset />} />
                     <Route  path="/userDashboard" element={<UserDashboard />} />
                     <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
+                    {/* <h1>Add item details</h1> */}
+                    <Route  path="/newdelivery" element={<NewDelivery />} />
                 </Routes>
             </Router>
         </div>
