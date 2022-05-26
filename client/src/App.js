@@ -7,7 +7,8 @@ import React from 'react';
 import Reset from "./Reset";
 import RegisterUser from './RegisterUser';
 import RegisterShopOwner from './RegisterShopOwner';
-import Home from './Home'
+import Home from './Home';
+// import Header from './ShopOwner/Header';
 import {
     BrowserRouter as Router,
     Routes,
@@ -30,7 +31,7 @@ function App() {
                     <Route  path="/reset" element={<Reset />} />
                     <Route  path="/userDashboard" element={<UserDashboard />} />
                     <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
-                    {/* <h1>Add item details</h1> */}
+                    {/* <Header/> */}
                     <Route  path="/newdelivery" element={<NewDelivery />} />
                 </Routes>
             </Router>
