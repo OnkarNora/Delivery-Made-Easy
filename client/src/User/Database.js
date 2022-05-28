@@ -55,6 +55,7 @@ const requestDelivery = async (delivery,userId) => {
             "status": "Requested"
         });
         console.log("request has been made",docSnap);
+        alert("request has been made please refresh");
         return "Done"
         
 

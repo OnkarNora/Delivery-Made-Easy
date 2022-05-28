@@ -31,7 +31,7 @@ function Dashboard() {
             <h1 className="dashboard__container">{ deliveries.length>0 ? <ListDeliveries deliveries={deliveries}/> :
                 "No Deliveries to show"
             }</h1>
-            <div className="text-center m-3" ><Button onClick={logout} >Logout</Button></div>
+            
         </div>
     );
 }

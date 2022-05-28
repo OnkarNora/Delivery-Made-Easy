@@ -15,6 +15,7 @@ import {
     Route,
 } from "react-router-dom";
 import NewDelivery from './ShopOwner/NewDelivery';
+import Requests from './ShopOwner/Requests'
 
 
 
@@ -31,6 +32,7 @@ function App() {
                     <Route  path="/reset" element={<Reset />} />
                     <Route  path="/userDashboard" element={<UserDashboard />} />
                     <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
+                    <Route  path="/requests/:id" element={<Requests />} />
                     {/* <Header/> */}
                     <Route  path="/newdelivery" element={<NewDelivery />} />
                 </Routes>

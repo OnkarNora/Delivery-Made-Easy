@@ -8,7 +8,7 @@ function NavigationBar() {
         <div>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand ><Link to="/" className="links">Delivery Made easy</Link></Navbar.Brand>
+                    <Navbar.Brand ><Link to="/userDashboard" className="links">Delivery Made easy</Link></Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Home</Nav.Link>
                         <Nav.Link href="#features">Features</Nav.Link>

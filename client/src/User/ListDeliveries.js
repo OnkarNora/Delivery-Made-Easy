@@ -1,13 +1,19 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {ListGroup, Button} from 'react-bootstrap'
 import {requestDelivery} from './Database'
 import {auth} from '../firebase'
 import { useAuthState } from "react-firebase-hooks/auth";
-
+import { useNavigate } from 'react-router-dom'
 
 function ListDeliveries({deliveries}) {
 
     const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (loading) return;
+        if (!user) return navigate("/");
+    }, [user, loading]);
 
     function getStatus(item){
         if(item.requests){
@@ -39,10 +45,10 @@ function ListDeliveries({deliveries}) {
                             <div>From : {item.from}</div>
                             <div>To : {item.to}</div>
                             <div>Status : {item.status}</div>
-                            <div>id : {item.id}</div>
+                            {/* <div>id : {item.id}</div> */}
                         </div>
 
-                        <Button className={'m-2 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid)}} >Request</Button>
+                        <Button className={'m-2 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid);navigate('/userDashboard')}} >Request</Button>
                     </div>
 
                     

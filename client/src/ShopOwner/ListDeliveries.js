@@ -4,10 +4,13 @@ import {ListGroup} from 'react-bootstrap'
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { acceptRequest,  getRequests, getUsers } from './Database'
+import { Link, useNavigate } from 'react-router-dom';
 
 function ListDeliveries({deliveries}) {
 
     const [user, loading, error] = useAuthState(auth);
+
+    
 
     return (
         <ListGroup as="ol" numbered>
@@ -28,16 +31,17 @@ function ListDeliveries({deliveries}) {
                             <div>From : {item.from}</div>
                             <div>To : {item.to}</div>
                             <div className='text-danger'>Status : {item.status}</div>
-                            <div>Delivery Person : {item.deliveryPerson}</div>
-                            <div>id : {item.id}</div>
+                            {/* <div>Delivery Person : {item.deliveryPerson==="" ? "Not accepted by anyone":item.deliveryPerson}</div> */}
+                            {/* <div>id : {item.id}</div> */}
                         </div>
 
-                        <Button  className="m-2"onClick={()=>{
+                        {/* <Button  className="m-2" onClick={()=>{
 
-                            getRequests(user,item).then((users)=>{getUsers(users).then((d)=>{ acceptRequest( item,d[0].uid ); })});
+                            // getRequests(user,item).then((users)=>{getUsers(users).then((d)=>{ acceptRequest( item,d[0].uid ); })});
+                            useNavigate('/requests/'+item.id)
                         
-                        
-                        }} >showRequests</Button>
+                        }} >showRequests</Button> */}
+                        <Link className='btn btn-primary m-3' to={'/requests/'+ item.id} >Show Requests</Link>
                     </div>
                     <hr/>
                 </ListGroup.Item>

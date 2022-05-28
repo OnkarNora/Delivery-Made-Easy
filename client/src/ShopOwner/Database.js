@@ -26,25 +26,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-const addNewDelivery = async (user) => {
+const addNewDelivery = async (delivery) => {
     // this is temporary object that i am passing we need to take this input from user
-    const delivery = {
-        name : "Pizza ",
-        weight : "200gm",
-        points : 40,
-        shopOwnerId : user.uid,
-        from : "ashok nagar",
-        to : "ramesh nagar",
-        deliveryPerson : "",
-        status : "Pending",
-    }
     
-
     try {
         await addDoc(collection(db, "deliveries"), delivery);
+        return "success"
     } catch (err) {
         console.error(err);
         alert(err.message);
+        return "error"
     }
 
     console.log("delivery request");
@@ -71,14 +62,14 @@ const fetchDeliveriesData = async (user) => {
     }
 };
 
-const getRequests = async (user,delivery) => {
+const getRequests = async (user,id) => {
     try{
         
-        const ref = doc(db,"deliveries",delivery.id);
+        const ref = doc(db,"deliveries",id);
         const docSnap = await getDoc(ref);
         const data = docSnap.data().requests
         if (data){
-            console.log(data);
+            // console.log(data);
             return data;
         } else{
             console.log("No requests");
@@ -103,7 +94,7 @@ const getUsers =  async (usersid)=>{
 
         } catch (err) {
             console.error(err);
-            alert("An error occurred  while fetching  data");
+            // alert("An error occurred  while fetching  data");
         }
     }))
     // console.log(data);
@@ -111,17 +102,18 @@ const getUsers =  async (usersid)=>{
     
 }
 
-const acceptRequest = async (delivery,userId)=>{ // this should change the status of the delivery to Allocated and add the deliveryPerson
+const acceptRequest = async (deliveryId,userId)=>{ // this should change the status of the delivery to Allocated and add the deliveryPerson
     try{
         
-        const ref = doc(db,"deliveries",delivery.id);
+        const ref = doc(db,"deliveries",deliveryId);
         const docSnap = await updateDoc(ref,{"status":"Allocated","deliveryPerson":userId});
         console.log("data has been updated",docSnap);
-        
+        return "accepted"
 
     } catch (err) {
         console.error(err);
         alert("An error occurred  while fetching  data");
+        return "rejected"
     }
 }
 
