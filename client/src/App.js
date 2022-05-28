@@ -7,12 +7,14 @@ import React from 'react';
 import Reset from "./Reset";
 import RegisterUser from './RegisterUser';
 import RegisterShopOwner from './RegisterShopOwner';
-import Home from './Home'
+import Home from './Home';
+// import Header from './ShopOwner/Header';
 import {
     BrowserRouter as Router,
     Routes,
     Route,
 } from "react-router-dom";
+import NewDelivery from './ShopOwner/NewDelivery';
 
 
 
@@ -29,6 +31,8 @@ function App() {
                     <Route  path="/reset" element={<Reset />} />
                     <Route  path="/userDashboard" element={<UserDashboard />} />
                     <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
+                    {/* <Header/> */}
+                    <Route  path="/newdelivery" element={<NewDelivery />} />
                 </Routes>
             </Router>
         </div>

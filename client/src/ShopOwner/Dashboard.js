@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import "./Dashboard.css";
 import { auth } from "../firebase";
 import NavBar from "./NavigationBar";
@@ -33,7 +33,7 @@ function Dashboard() {
             <h1 className="dashboard__container">{ deliveries.length>0 ? <ListDeliveries deliveries={deliveries}/> :
                 "No Deliveries to show"
             }</h1>
-            <div className="text-center m-3" ><Button onClick={()=>{addNewDelivery(user);fetchDeliveriesData(user).then((d)=>{setDeliveries(d);})}} >Add new Delivery</Button></div>
+            <div className="text-center" ><Link className="btn btn-primary " to="/newdelivery" >Add new Delivery</Link></div>
             
         </div>
     );
