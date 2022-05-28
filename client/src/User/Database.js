@@ -27,7 +27,7 @@ const db = getFirestore(app);
 
 const fetchDeliveriesData = async (user) => {
     try {
-        const q = query(collection(db, "deliveries"));
+        const q = query(collection(db, "deliveries"),where('status','in',['Pending','Requested']));
         
         const doc = await getDocs(q);
         let data = []
@@ -55,11 +55,13 @@ const requestDelivery = async (delivery,userId) => {
             "status": "Requested"
         });
         console.log("request has been made",docSnap);
+        return "Done"
         
 
     } catch (err) {
         console.error(err);
         alert("An error occurred  while fetching  data");
+        return "Failed"
     }
 }
 

@@ -32,7 +32,7 @@ function ListDeliveries({deliveries}) {
                             <div>id : {item.id}</div>
                         </div>
 
-                        <Button className="m-2"onClick={()=>{
+                        <Button  className="m-2"onClick={()=>{
 
                             getRequests(user,item).then((users)=>{getUsers(users).then((d)=>{ acceptRequest( item,d[0].uid ); })});
                         

@@ -9,10 +9,21 @@ function ListDeliveries({deliveries}) {
 
     const [user, loading, error] = useAuthState(auth);
 
+    function getStatus(item){
+        if(item.requests){
+            if(item.requests.includes(user.uid)){
+                return "disabled"
+            }
+        }
+        
+        return ""
+    }
+
     return (
         <ListGroup as="ol" numbered>
             {deliveries.map((item,id)=>{
                 return (
+                    
                 <ListGroup.Item
                     as="li"
                     className="d-flex h4 "
@@ -31,7 +42,7 @@ function ListDeliveries({deliveries}) {
                             <div>id : {item.id}</div>
                         </div>
 
-                        <Button className='m-2' onClick={()=>{requestDelivery(item,user.uid)}} >Request</Button>
+                        <Button className={'m-2 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid)}} >Request</Button>
                     </div>
 
                     
