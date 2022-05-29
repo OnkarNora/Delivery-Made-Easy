@@ -27,7 +27,70 @@ const db = getFirestore(app);
 
 const fetchDeliveriesData = async (user) => {
     try {
-        const q = query(collection(db, "deliveries"));
+        const q = query(collection(db, "deliveries"),where('status','in',['Pending','Requested']));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching user data");
+    }
+};
+
+const fetchAllocatedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where('status','==','Allocated'),where('deliveryPerson','==',user.uid));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching user data");
+    }
+};
+
+const fetchCollectedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where('status','==','Collected'),where('deliveryPerson','==',user.uid));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching user data");
+    }
+};
+
+const fetchCompletedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where('status','==','Delivered'),where('deliveryPerson','==',user.uid));
         
         const doc = await getDocs(q);
         let data = []
@@ -50,21 +113,47 @@ const requestDelivery = async (delivery,userId) => {
     try{
         
         const ref = doc(db,"deliveries",delivery.id);
-        const docSnap = await await updateDoc(ref, {
+        const docSnap = await updateDoc(ref, {
             "requests": arrayUnion(userId),
             "status": "Requested"
         });
         console.log("request has been made",docSnap);
+        alert("request has been made please refresh");
+        return "Done"
         
 
     } catch (err) {
         console.error(err);
         alert("An error occurred  while fetching  data");
+        return "Failed"
+    }
+}
+
+const deliverPackage = async (delivery)=>{
+    try{
+        
+        const ref = doc(db,"deliveries",delivery.id);
+        const docSnap = await updateDoc(ref, {
+            "status": "Delivered"
+        });
+        console.log("delivery has been made",docSnap);
+        alert("Delivery confirmed");
+        return "Done"
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+        return "Failed"
     }
 }
 
 export {
     fetchDeliveriesData,
     requestDelivery,
+    fetchAllocatedData,
+    fetchCompletedData,
+    fetchCollectedData,
+    deliverPackage,
 
 }

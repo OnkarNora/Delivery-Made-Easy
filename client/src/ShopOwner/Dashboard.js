@@ -21,7 +21,7 @@ function Dashboard() {
         if (!user) return navigate("/");
         fetchDeliveriesData(user).then((d)=>{
             setDeliveries(d);
-            console.log(d)
+            // console.log(d)
         })
     }, [user, loading]);
 
@@ -30,9 +30,9 @@ function Dashboard() {
     return (
         <div >
             <NavBar/>
-            <h1 className="dashboard__container">{ deliveries.length>0 ? <ListDeliveries deliveries={deliveries}/> :
+            <h5 className="dashboard__container">{ deliveries.length>0 ? <ListDeliveries deliveries={deliveries}/> :
                 "No Deliveries to show"
-            }</h1>
+            }</h5>
             <div className="text-center" ><Link className="btn btn-primary " to="/newdelivery" >Add new Delivery</Link></div>
             
         </div>
