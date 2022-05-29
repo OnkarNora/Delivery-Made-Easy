@@ -14,6 +14,7 @@ function NavigationBar() {
                         <Nav.Link as={NavLink} to="/userAllocated">Allocated</Nav.Link>
                         <Nav.Link as={NavLink} to="/userTaken">Collected</Nav.Link>
                         <Nav.Link as={NavLink} to="/userCompleted">Completed</Nav.Link>
+                        <Nav.Link as={NavLink} to="/userPoints">Points</Nav.Link>
                     </Nav>
                     <div className="text-center m-3" ><Button onClick={logout} >Logout</Button></div>
                 </Container>

@@ -8,6 +8,8 @@ import {
     updateDoc,
     doc,
     arrayUnion,
+    increment,
+    getDoc
 } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
@@ -148,6 +150,64 @@ const deliverPackage = async (delivery)=>{
     }
 }
 
+const allocatePoints = async(user,delivery)=>{
+    try{
+        const q = query(collection(db, "users"),where('uid','==',user.uid));
+        
+        const doc = await getDocs(q);
+        console.log("ref",doc.docs[0].ref)
+        const docSnap = await updateDoc(doc.docs[0].ref, {
+            ["points."+delivery.shopOwnerId]:increment(Number(delivery.points))
+        });
+        console.log("request has been made",docSnap);
+        alert("points allocated successfully");
+        return "Done"
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+        return "Failed"
+    }
+}
+
+const fetchPoints = async(user)=>{
+    try{
+        
+        const q = query(collection(db, "users"),where('uid','==',user.uid));
+        
+        const doc = await getDocs(q);
+        // console.log("data",doc.docs[0].data().points)
+        return doc.docs[0].data().points
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+        return "Failed"
+    }
+}
+
+const shopOwnerInfo = async(shopId)=>{
+    try{
+
+        const q = query(collection(db, "shopowner"),where('uid','==',shopId));
+        const doc = await getDocs(q);
+
+        if (doc.docs[0]){
+            return doc.docs[0].data()
+        }
+        return "Not found"
+        
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+        return "Failed"
+    }
+}
+
 export {
     fetchDeliveriesData,
     requestDelivery,
@@ -155,5 +215,8 @@ export {
     fetchCompletedData,
     fetchCollectedData,
     deliverPackage,
+    allocatePoints,
+    fetchPoints,
+    shopOwnerInfo,
 
 }

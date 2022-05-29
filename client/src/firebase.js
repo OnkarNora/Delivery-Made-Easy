@@ -66,7 +66,8 @@ const registerUserWithEmailAndPassword = async (name, email, password) => {
             name,
             authProvider: "local",
             email,
-            type:"user"
+            type:"user",
+            points:{},
         });
     } catch (err) {
         console.error(err);

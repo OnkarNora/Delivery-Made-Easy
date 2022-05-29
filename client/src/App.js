@@ -1,4 +1,3 @@
-
 import './App.css';
 import Login from './Login'
 import UserDashboard from './User/Dashboard';
@@ -22,6 +21,7 @@ import ShopOwnerAllocated from './ShopOwner/ShopOwnerAllocated';
 import ShopOwnerCompleted from './ShopOwner/ShopOwnerCompleted';
 import ShopOwnerCollected from './ShopOwner/Collected';
 import UserCollected from './User/Collected';
+import UserPoints from './User/Points'
 
 function App() {
     return (
@@ -43,8 +43,9 @@ function App() {
                     <Route  path="/shopOwnerCompleted" element={<ShopOwnerCompleted />} />
                     <Route  path="/shopOwnerTaken" element={<ShopOwnerCollected />} />
                     <Route  path="/userTaken" element={<UserCollected />} />
-
                     <Route  path="/newdelivery" element={<NewDelivery />} />
+                    <Route  path="/userPoints" element={<UserPoints />} />
+                    
                 </Routes>
             </Router>
         </div>
