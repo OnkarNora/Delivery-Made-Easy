@@ -46,11 +46,74 @@ const fetchDeliveriesData = async (user) => {
     }
 };
 
+const fetchAllocatedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where('status','==','Allocated'),where('deliveryPerson','==',user.uid));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching user data");
+    }
+};
+
+const fetchCollectedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where('status','==','Collected'),where('deliveryPerson','==',user.uid));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching user data");
+    }
+};
+
+const fetchCompletedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where('status','==','Delivered'),where('deliveryPerson','==',user.uid));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching user data");
+    }
+};
+
 const requestDelivery = async (delivery,userId) => {
     try{
         
         const ref = doc(db,"deliveries",delivery.id);
-        const docSnap = await await updateDoc(ref, {
+        const docSnap = await updateDoc(ref, {
             "requests": arrayUnion(userId),
             "status": "Requested"
         });
@@ -66,8 +129,31 @@ const requestDelivery = async (delivery,userId) => {
     }
 }
 
+const deliverPackage = async (delivery)=>{
+    try{
+        
+        const ref = doc(db,"deliveries",delivery.id);
+        const docSnap = await updateDoc(ref, {
+            "status": "Delivered"
+        });
+        console.log("delivery has been made",docSnap);
+        alert("Delivery confirmed");
+        return "Done"
+        
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+        return "Failed"
+    }
+}
+
 export {
     fetchDeliveriesData,
     requestDelivery,
+    fetchAllocatedData,
+    fetchCompletedData,
+    fetchCollectedData,
+    deliverPackage,
 
 }

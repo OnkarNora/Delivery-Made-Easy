@@ -39,7 +39,7 @@ function Requests() {
         acceptRequest(id,userId).then((result)=>{
             if (result === "accepted"){
                 alert("User has been accepted");
-                navigate('/shopOwnerDashboard')
+                navigate('/shopOwnerAllocated')
             }else if (result === "rejected"){
                 alert("there was an error accepting user");
             }

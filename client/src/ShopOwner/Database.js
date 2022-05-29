@@ -43,7 +43,70 @@ const addNewDelivery = async (delivery) => {
 
 const fetchDeliveriesData = async (user) => {
     try {
-        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid));
+        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid),where('status','in',['Pending','Requested']));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+    }
+};
+
+const fetchAllocatedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid),where('status','==','Allocated'));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+    }
+};
+
+const fetchCollectedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid),where('status','==','Collected'));
+        
+        const doc = await getDocs(q);
+        let data = []
+        // console.log(doc.docs)
+        doc.docs.map((item)=>{
+            // console.log(item.data)
+            let d = item.data()
+            d.id = item.id
+            data.push(d)
+            
+        });
+        return data;
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+    }
+};
+
+const fetchCompletedData = async (user) => {
+    try {
+        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid),where('status','==','Completed'));
         
         const doc = await getDocs(q);
         let data = []
@@ -117,10 +180,29 @@ const acceptRequest = async (deliveryId,userId)=>{ // this should change the sta
     }
 }
 
+const collectDelivery = async (deliveryId)=>{
+    try{
+        
+        const ref = doc(db,"deliveries",deliveryId);
+        const docSnap = await updateDoc(ref,{"status":"Collected"});
+        alert("The data has been updated please refresh")
+        return "accepted"
+
+    } catch (err) {
+        console.error(err);
+        alert("An error occurred  while fetching  data");
+        return "rejected"
+    }
+}
+
 export {
     addNewDelivery,
     fetchDeliveriesData,
     getRequests,
     getUsers,
     acceptRequest,
+    fetchAllocatedData,
+    fetchCompletedData,
+    fetchCollectedData,
+    collectDelivery,
 }

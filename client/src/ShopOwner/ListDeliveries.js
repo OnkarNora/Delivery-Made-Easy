@@ -3,13 +3,13 @@ import React from 'react'
 import {ListGroup} from 'react-bootstrap'
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { acceptRequest,  getRequests, getUsers } from './Database'
+import { collectDelivery } from './Database'
 import { Link, useNavigate } from 'react-router-dom';
 
 function ListDeliveries({deliveries}) {
 
     const [user, loading, error] = useAuthState(auth);
-
+    const navigate = useNavigate();
     
 
     return (
@@ -41,7 +41,8 @@ function ListDeliveries({deliveries}) {
                             useNavigate('/requests/'+item.id)
                         
                         }} >showRequests</Button> */}
-                        <Link className='btn btn-primary m-3' to={'/requests/'+ item.id} >Show Requests</Link>
+                        {item.status==='Requested'?<Link className='btn btn-primary my-3' to={'/requests/'+ item.id} >Show Requests</Link> :null}
+                        {item.status==='Allocated'?<Button className='my-3' variant='info' onClick={()=>{collectDelivery(item.id).then(()=>{navigate("/shopOwnerTaken")});}} >Collected</Button> :null}
                     </div>
                     <hr/>
                 </ListGroup.Item>

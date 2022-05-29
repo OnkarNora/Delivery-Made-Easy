@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
-import {ListGroup, Button} from 'react-bootstrap'
-import {requestDelivery} from './Database'
+import {ListGroup, Button, Alert} from 'react-bootstrap'
+import {deliverPackage, requestDelivery} from './Database'
 import {auth} from '../firebase'
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from 'react-router-dom'
@@ -17,12 +17,22 @@ function ListDeliveries({deliveries}) {
 
     function getStatus(item){
         if(item.requests){
-            if(item.requests.includes(user.uid)){
+            if(item.requests.includes(user?.uid)){
                 return "disabled"
             }
         }
         
         return ""
+    }
+
+    function deliver(item) {
+        if (window.confirm("Please confirm that you have delivered this package if not your account may get permanently Banned!")) {
+            deliverPackage(item).then(()=>{
+                navigate("/userCompleted");
+            })
+          } else {
+            console.log("Not confirmed");
+          }
     }
 
     return (
@@ -48,7 +58,10 @@ function ListDeliveries({deliveries}) {
                             {/* <div>id : {item.id}</div> */}
                         </div>
 
-                        <Button className={'m-2 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid);navigate('/userDashboard')}} >Request</Button>
+                        {['Requested','Pending'].includes(item.status)?<Button className={'my-3 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid);navigate('/login')}} >Request</Button>:null}
+                        {item.status==='Allocated'?<Alert className='my-3' key={"primary"} variant={"primary"} >Take the package from shop</Alert>:null}
+                        {item.status==='Collected' ? <Button className='my-3' variant='outline-success' onClick={()=>{deliver(item)}} >Delivered</Button> :null}
+                        {item.status==='Delivered' ? <Alert className='my-3' key={"primary"} variant={"success"} >Delivery has been successfully made and points received</Alert> :null}
                     </div>
 
                     

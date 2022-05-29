@@ -16,8 +16,12 @@ import {
 } from "react-router-dom";
 import NewDelivery from './ShopOwner/NewDelivery';
 import Requests from './ShopOwner/Requests'
-
-
+import UserAllocated from './User/UserAllocated';
+import UserCompleted from './User/UserCompleted';
+import ShopOwnerAllocated from './ShopOwner/ShopOwnerAllocated';
+import ShopOwnerCompleted from './ShopOwner/ShopOwnerCompleted';
+import ShopOwnerCollected from './ShopOwner/Collected';
+import UserCollected from './User/Collected';
 
 function App() {
     return (
@@ -33,6 +37,13 @@ function App() {
                     <Route  path="/userDashboard" element={<UserDashboard />} />
                     <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
                     <Route  path="/requests/:id" element={<Requests />} />
+                    <Route  path="/userAllocated" element={<UserAllocated />} />
+                    <Route  path="/userCompleted" element={<UserCompleted />} />
+                    <Route  path="/shopOwnerAllocated" element={<ShopOwnerAllocated />} />
+                    <Route  path="/shopOwnerCompleted" element={<ShopOwnerCompleted />} />
+                    <Route  path="/shopOwnerTaken" element={<ShopOwnerCollected />} />
+                    <Route  path="/userTaken" element={<UserCollected />} />
+
                     {/* <Header/> */}
                     <Route  path="/newdelivery" element={<NewDelivery />} />
                 </Routes>
