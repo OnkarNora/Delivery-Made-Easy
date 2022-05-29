@@ -31,7 +31,6 @@ function App() {
                     <Route  path="/reset" element={<Reset />} />
                     <Route  path="/userDashboard" element={<UserDashboard />} />
                     <Route  path="/shopOwnerDashboard" element={<ShopOwnerDashboard />} />
-                    {/* <Header/> */}
                     <Route  path="/newdelivery" element={<NewDelivery />} />
                 </Routes>
             </Router>
