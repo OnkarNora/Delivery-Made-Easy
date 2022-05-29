@@ -106,7 +106,7 @@ const fetchCollectedData = async (user) => {
 
 const fetchCompletedData = async (user) => {
     try {
-        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid),where('status','==','Completed'));
+        const q = query(collection(db, "deliveries"),where("shopOwnerId" ,"==" ,user.uid),where('status','==','Delivered'));
         
         const doc = await getDocs(q);
         let data = []
