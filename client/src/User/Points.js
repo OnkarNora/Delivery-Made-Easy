@@ -37,7 +37,7 @@ function Points() {
                 <Table striped bordered hover variant="dark">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No.</th>
                             <th>ShopOwner Email </th>
                             <th>ShopOwner Name</th>
                             <th>Points</th>
@@ -45,7 +45,7 @@ function Points() {
                     </thead>
                     <tbody>
                     {data}
-                    </tbody>
+                    </tbody>    
                 </Table>
             </div>
         )
