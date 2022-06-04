@@ -51,8 +51,8 @@ function ListDeliveries({deliveries}) {
                         <div className="fw-bold">{item.name}</div>
 
                         <div className='d-flex flex-column ' >
-                            <div>weight : {item.weight}</div>
-                            <div>Pointes : {item.points}</div>
+                            <div>Weight : {item.weight}</div>
+                            <div>Points : {item.points}</div>
                             <div>From : {item.from}</div>
                             <div>To : {item.to}</div>
                             <div>Status : {item.status}</div>

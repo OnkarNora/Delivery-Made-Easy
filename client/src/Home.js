@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import logo from './Image/Logo.PNG';
+import backgroundImage from './Image/Login_page.jpg';
 
 function Home() {
   return (
 
-    <section class="h-100 gradient-form" style={{ backgroundColor: "#ccccf6" }}>
+    <section class="h-100 gradient-form" style={{backgroundImage: "url(" + backgroundImage + ")",backgroundPosition: 'center',backgroundSize: 'cover',backgroundRepeat: 'no-repeat'
+  }}>
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col-xl-10">
