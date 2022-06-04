@@ -32,14 +32,14 @@ function ListDeliveries({deliveries}) {
                             <div>Pointes : {item.points}</div>
                             <div>From : {item.from}</div>
                             <div>To : {item.to}</div>
-                            <div className='text-danger'>Status : {item.status}</div>
+                            <div>Status : <span className="text-danger" >{item.status}</span></div>
                             {/* <div>Delivery Person : {item.deliveryPerson==="" ? "Not accepted by anyone":item.deliveryPerson}</div> */}
                             {/* <div>id : {item.id}</div> */}
                         </div>
                         {/* {showMap ? <Button className='my-3' onClick={()=>{setShowMap(false)}} >Hide Map</Button>:<Button className='my-3' onClick={()=>{setShowMap(true)}} >Show Map</Button>} */}
                         {showMap ? <MapView delivery={item} />:null}
                         {item.status==='Requested'?<Link className='btn btn-primary my-3' to={'/requests/'+ item.id} >Show Requests</Link> :null}
-                        {item.status==='Allocated'?<Button className='my-3' variant='info' onClick={()=>{collectDelivery(item.id).then(()=>{navigate("/shopOwnerTaken")});}} >Collected</Button> :null}
+                        {item.status==='Allocated'?<Button className='my-3' variant='outline-info' onClick={()=>{collectDelivery(item.id).then(()=>{navigate("/shopOwnerTaken")});}} >Collected</Button> :null}
                     </div>
                     <hr/>
                 </ListGroup.Item>
