@@ -7,7 +7,7 @@ import {
   signInWithGoogle,
 } from "./firebase";
 import "./Register.css";
-
+import logo from './Image/Login_page.jpg'
 function RegisterShopOwner() {
 
     const [email, setEmail] = useState("");
@@ -25,8 +25,9 @@ function RegisterShopOwner() {
     }, [user, loading]);
 
     return (
-        <div className="register">
+        <div className="register"style={{backgroundImage: "url(" + logo + ")",backgroundPosition: 'center',backgroundSize: 'cover',backgroundRepeat: 'no-repeat'}}>
             <div className="register__container">
+            <h2>Register</h2>
                 <input
                     type="text"
                     className="register__textBox"
