@@ -33,7 +33,7 @@ function Dashboard() {
             <h5 className="dashboard__container">{ deliveries.length>0 ? <ListDeliveries deliveries={deliveries}/> :
                 "No Deliveries to show"
             }</h5>
-            <div className="text-center" ><Link className="btn btn-primary " to="/newdelivery" >Add new Delivery</Link></div>
+            
             
         </div>
     );

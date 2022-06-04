@@ -59,7 +59,7 @@ function ListDeliveries({deliveries}) {
                             {/* <div>id : {item.id}</div> */}
                         </div>
 
-                        {['Requested','Pending'].includes(item.status)?<Button className={'my-3 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid);navigate('/login')}} >Request</Button>:null}
+                        {['Requested','Pending'].includes(item.status)?<Button variant={getStatus(item)==="disabled"?'secondary':'outline-primary'} className={'my-3 ' + getStatus(item)} onClick={()=>{requestDelivery(item,user.uid);navigate('/userDashboard')}} >Request</Button>:null}
                         {item.status==='Allocated'?<Alert className='my-3' key={"primary"} variant={"primary"} >Take the package from shop</Alert>:null}
                         {item.status==='Collected' ? <Button className='my-3' variant='outline-success' onClick={()=>{deliver(item)}} >Delivered</Button> :null}
                         {item.status==='Delivered' ?  <Alert className='my-3' key={"primary"} variant={"success"} >Delivery has been successfully made and points received</Alert>:null}

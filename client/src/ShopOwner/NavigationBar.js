@@ -16,7 +16,8 @@ function NavigationBar() {
                         <Nav.Link as={NavLink} to="/shopOwnerTaken">Collected</Nav.Link>
                         <Nav.Link as={NavLink} to="/shopOwnerCompleted">Completed</Nav.Link>
                     </Nav>
-                    <div className="text-center m-3" ><Button onClick={logout} >Logout</Button></div>
+                    <div className="text-center" ><Link className="btn btn-outline-light " to="/newdelivery" >Add new Delivery</Link></div>
+                    <div className="text-center m-3" ><Button variant='dark' onClick={logout} >Logout</Button></div>
                 </Container>
             </Navbar>
         </div>
