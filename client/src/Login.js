@@ -4,6 +4,8 @@ import { auth, logInWithEmailAndPassword, signInWithGoogle } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { UserType } from "./UserType";
 import "./Login.css";
+import logo from './Image/Login_page.jpg';
+
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,10 +28,9 @@ function Login() {
         }
             
     }, [user, loading]);
-
     return (
-        <div className="login">
-            
+        <div className="login"style={{backgroundImage: "url(" + logo + ")",backgroundPosition: 'center',backgroundSize: 'cover',backgroundRepeat: 'no-repeat'
+          }}>
             <div className="login__container">
             <h2>Login</h2>
                 <input

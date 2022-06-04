@@ -1,12 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-// import {Link} from 'react-router-dom'
 import logo from './Image/Logo.PNG';
 
 function Home() {
-  // return (
-  //   <div className="text-center m-3" ><Link className='btn btn-primary' to="/login" >Login</Link></div>
-  // )
   return (
 
     <section class="h-100 gradient-form" style={{ backgroundColor: "#ccccf6" }}>
@@ -24,7 +20,7 @@ function Home() {
                     </div>
                     <div class="text-center pt-1 mb-5 pb-1">
                       <Link to="/login">
-                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Log
+                        <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button" style={{textDecorationColor:'none'}}>Log
                           in</button>
                       </Link>
                     </div>
